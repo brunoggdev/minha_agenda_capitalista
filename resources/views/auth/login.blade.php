@@ -46,7 +46,7 @@
             </x-primary-button>
         </div>
     </form>
-    <div class="mt-7 mb-4 pt-3 border-t-2 text-center">
+    <div class="mt-7 mb-4 pt-3 border-t text-center">
         <p class="text-gray-600 dark:text-gray-200">{{ __('pt.Or make login with:') }}</p>
     </div>
     <a href="{{ url('/sign-in/google') }}"
