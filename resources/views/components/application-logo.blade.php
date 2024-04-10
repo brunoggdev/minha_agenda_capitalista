@@ -1,1 +1,1 @@
-<img src="logo.png" alt="" {{$attributes}}>
+<img src="{{ url('logo.png') }}" alt="" {{$attributes}}>

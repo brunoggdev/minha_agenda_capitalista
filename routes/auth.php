@@ -9,9 +9,35 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::middleware('guest')->group(function () {
+
+    Route::get('/sign-in/google', function() {
+        return Socialite::driver('google')->redirect();
+    });
+
+    Route::get('/sign-in/google/redirect', function() {
+        $google_user = Socialite::driver('google')->user();
+
+        $user = User::firstOrCreate([
+                'email' => $google_user->email
+            ], [
+                'name' => $google_user->name,
+                'password' => Illuminate\Support\Str::password(8)
+            ]
+        );
+
+        $user->markEmailAsVerified();
+        Auth::login($user, true);
+
+        return redirect('/home');
+    });
+
+
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
