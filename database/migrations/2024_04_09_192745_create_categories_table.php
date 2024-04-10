@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\User::class)->nullable();
+            $table->foreignIdFor(App\Models\User::class);
             $table->string('name');
             $table->string('text_color');
             $table->string('bg_color');
